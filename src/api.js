@@ -20,7 +20,7 @@ route = pathAbs(route);
 
 const pathExists = (filePath) => {
   fs.access(filePath, (err) => {
-  console.log(`${filePath} ${err ? 'does not exist' : 'exists'}`);
+  //console.log(`${filePath} ${err ? 'does not exist' : 'exists'}`);
 });
 }
 //pathExists(route);
@@ -78,7 +78,7 @@ const readMD = (filePathArray) => {
     })
     newArray = newArray.concat(newProperties);
   })
-  console.log(newArray);
+  //console.log(newArray);
 }
 readMD(allMD(filesComplete))
 
