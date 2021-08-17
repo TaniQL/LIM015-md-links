@@ -1,6 +1,7 @@
 //const mdLinks = require('../');
 
-const pathAbs = require("../src/api.js");
+const {pathAbs} = require("../src/api.js");
+console.log(pathAbs);
 
 
 describe('pathAbs', () => {

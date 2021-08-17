@@ -19,19 +19,19 @@ route = pathAbs(route);
 /*---------------Function Path exists or not--------------*/
 
 const pathExists = (filePath) => {
-  fs.access(filePath, (err) => {
-  //console.log(`${filePath} ${err ? 'does not exist' : 'exists'}`);
-});
+  try{
+    fs.accessSync(filePath);
+    return true;
+  } catch (err) {
+    return false;
+  }
 }
-//pathExists(route);
-
 
 /*---------------Function Path File--------------*/
 const isFilePath = (filePath) => {
   const stats = fs.lstatSync(filePath);
   return stats.isFile();
 }
-//console.log(isFilePath(route));
 
 /*---------------Extension .md--------------*/
 
@@ -55,7 +55,6 @@ const pathDir = (filePath) => {
   }
   return routeComplete;
 }
-const filesComplete = pathDir(route);
 
 //que lea la extensión y que lo coloque en el array.
 const allMD = (filePathArray) => {
@@ -63,8 +62,6 @@ const allMD = (filePathArray) => {
   filesmd = filePathArray.filter((files)=> (findmd(files)))
   return filesmd;
 }
-
-allMD(filesComplete);
 
 /*-------Leer archivo------*/
 
@@ -78,17 +75,48 @@ const readMD = (filePathArray) => {
     })
     newArray = newArray.concat(newProperties);
   })
-  //console.log(newArray);
+  return newArray;
 }
-readMD(allMD(filesComplete))
+//console.log(readMD(allMD(pathDir(route))));
 
 
+const api = (pathFile) => {
+  let promise = new Promise ((resolve,reject) => {
+    const abs = pathAbs(pathFile);
+    if (pathExists(abs)){
+      const arrayFiles = pathDir(abs);
+      if(arrayFiles === 0){
+        return reject("ERROR!!!");
+      } else {
+        const arrayMD = allMD(arrayFiles);
+        if (arrayMD.length === 0){
+          return reject("ERROR!!!");
+        } else if (arrayMD !== 0){
+          const arrayObjects =readMD(arrayMD);
+          return console.log(arrayObjects[0].href);
+        }
+      }
+    } else {
+      return reject("ERROR!!!");
+    }
+  })
+  return promise;
+}
 
-/*-------Exportar módulos a mdlinks.js------*/
-module.exports = () => {
-  pathAbs;
-  pathExists;
-  isFilePath;
-  pathDir;
-  findmd;
+const link = api(route);
+
+fetch(link)
+  .then (response => response.status() )
+  .then(data => {
+    console.log(data)
+  })
+  .catch (err => console.log(err))
+  /*-------Exportar módulos a mdlinks.js------*/
+module.exports = {
+  pathAbs,
+  pathExists,
+  isFilePath,
+  pathDir,
+  findmd,
+  readMD
 };
