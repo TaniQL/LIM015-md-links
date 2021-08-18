@@ -1,12 +1,8 @@
-//const mdLinks = require('../');
+const {api} = require("../src/api.js");
 
-const {pathAbs} = require("../src/api.js");
-console.log(pathAbs);
-
-
-describe('pathAbs', () => {
+describe('api', () => {
   it('is a function', () => {
-    expect(typeof pathAbs).toBe('function');
+    expect(typeof api).toBe('function');
   });
 
   // it ('Deberia retornar Johto para filterRegion', () => {
