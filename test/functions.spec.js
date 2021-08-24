@@ -87,18 +87,37 @@ describe('api', () => {
 
   it ('Deberia retornar ERROR!!!', () => {
     const result = api(routeFalse);
-    expect(result).rejects.toBe('ERROR!!!');
+    expect(result).rejects.toBe('False path');
   })
 
   it ('Deberia retornar ERROR!!!', () => {
-    const result = api("/home/tania/LIM015-md-links/filesmd/testsrc");
-    expect(result).rejects.toBe('ERROR!!!');
+    const result = api("/home/tania/LIM015-md-links/filesmd/dirempty");
+    expect(result).rejects.toBe('No files');
   })
 
   it ('Deberia retornar ERROR!!!', () => {
-    const result = api("/home/tania/LIM015-md-links/filesmd/testsrc/files");
-    expect(result).rejects.toBe('ERROR!!!');
+    const result = api("/home/tania/LIM015-md-links/filesmd/testsrc/hola.md");
+    expect(result).rejects.toBe('No links');
+  })
+
+  it ('Deberia retornar ERROR!!!', () => {
+    const result = api("/home/tania/LIM015-md-links/filesmd/testsrc/files/hola.txt");
+    expect(result).rejects.toBe('Sin archivos md');
   })
 });
 
 
+const {statistics, brokenLinks} = require("../src/stats.js");
+
+describe('statistics', () => {
+  it('is a function', () => {
+    expect(typeof statistics).toBe('function');
+  });
+});
+
+describe('brokenLinks', () => {
+  it('is a function', () => {
+    expect(typeof brokenLinks).toBe('function');
+  });
+
+});

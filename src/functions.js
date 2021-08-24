@@ -55,7 +55,7 @@ const pathDir = (filePath) => {
   }
   return routeComplete;
 }
-//console.log(pathDir(route).length);
+
 //que lea la extensión y que lo coloque en el array.
 const allMD = (filePathArray) => {
   let filesmd = [];
@@ -80,66 +80,31 @@ const readMD = (filePathArray) => {
 
 /*-------Extraer links para verificar su status------*/
 
-
-
-// const validateLinks = (data) => 
-//     data.map((obj) => {
-//     if (obj.href == '-') {
-//         return {
-//             file: obj.file,
-//             href: obj.href,
-//             text: obj.text,
-//             status: '-',
-//             message: '-'
-//         }
-//     } else {
-//         return fetch(obj.href)
-//             .then((res) => {
-//                 return {
-//                     file: obj.file,
-//                     href: obj.href,
-//                     text: obj.text,
-//                     status: res.status,
-//                     message: res.statusText
-//                 }
-//             })
-//             .catch((error) => {
-//                 return {
-//                     file: obj.file,
-//                     href: obj.href,
-//                     text: obj.text,
-//                     status: 500,
-//                     message: 'FAIL',
-//                 }
-//             });
-//     }
-
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const statusLinks = (result) =>{
+  return fetch(result.href)
+  .then(res => {
+    const statusText = (res.status == 200)? 'ok' :'fail';
+    const objRes = {
+     ...result,
+      status: res.status,
+      message: statusText
+      }
+    return objRes
+  }).catch(rej => {
+    const objRej ={
+      ...result,
+      status: rej.status,
+      message: 'Status not found'
+    }
+    return objRej
+  })
+}
 
 module.exports = {
-    pathAbs,
-    pathExists,
-    pathDir,
-    allMD,
-    readMD
-  };
+  pathAbs,
+  pathExists,
+  pathDir,
+  allMD,
+  readMD,
+  statusLinks
+};
