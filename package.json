@@ -1,9 +1,13 @@
 {
-  "name": "md-links",
+  "name": "mdlinks-tql",
   "version": "1.0.0",
   "description": "## Índice",
-  "main" : "src/cli.js",
-  "keywords": ["mdlinks","cli","markdown"],
+  "main": "src/cli.js",
+  "keywords": [
+    "mdlinks",
+    "cli",
+    "markdown"
+  ],
   "directories": {
     "test": "test"
   },
@@ -22,11 +26,14 @@
   "homepage": "https://github.com/TaniQL/LIM015-md-links#readme",
   "dependencies": {
     "@laboratoria/curriculum-parser": "github:Laboratoria/course-parser",
+    "chalk": "^4.1.2",
     "filehound": "^1.17.4",
     "jest": "^27.0.6",
     "markdown-link-extractor": "^1.3.0",
     "node-fetch": "^2.6.1"
   },
-  "devDependencies": {},
-  "bin": "src/cli.js"
+  "bin": {
+    "mdlinks": "src/cli.js"
+  },
+  "devDependencies": {}
 }

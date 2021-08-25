@@ -3,6 +3,14 @@ const route = "/home/tania/LIM015-md-links/filesmd/test.md";
 const routeRel = "filesmd/test.md";
 const routeDir = "/home/tania/LIM015-md-links/filesmd";
 const routeFalse = "/home/tania/LIM015-md-links/filesmd/tst.md";
+const arrayObjects = [
+  {
+    href: 'https://es.wikipedia.org/wiki/Markdown',
+    text: 'Markdown',
+    path: '/home/tania/LIM015-md-links/filesmd/test.md',
+    status: 200,
+    message: 'ok'
+  }];
 
 describe('pathAbs', () => {
   it('is a function', () => {
@@ -113,11 +121,18 @@ describe('statistics', () => {
   it('is a function', () => {
     expect(typeof statistics).toBe('function');
   });
+  it ('Deberia retornar string', () => {
+    const result = statistics(arrayObjects);
+    expect (typeof result).toEqual('string');
+  })
 });
 
 describe('brokenLinks', () => {
   it('is a function', () => {
     expect(typeof brokenLinks).toBe('function');
   });
-
+  it ('Deberia retornar string', () => {
+    const result = brokenLinks(arrayObjects);
+    expect (typeof result).toEqual('string');
+  })
 });
