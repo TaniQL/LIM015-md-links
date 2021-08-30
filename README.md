@@ -25,7 +25,7 @@ Mdlinks es una libreria creada a partir de NodeJS, la cual leer y analiza archiv
 
 ## 3. Diagrama de flujo
 
-![alt text](img/JS API.png)
+![alt text](img/JS_API.png)
 ![alt text](img/CLI.png)
 
 ## 4. Guía de uso
@@ -34,15 +34,18 @@ Mdlinks es una libreria creada a partir de NodeJS, la cual leer y analiza archiv
 
 Instala la librería con npm:
 
+` npm `
+
 
 Instala la librería con github:
 
+` npm github `
 
 
 ## Utilizarlo como librería
 
 
-`const mdlinks = require('tql-mdlinks');`
+```const mdlinks = require('tql-mdlinks'); ```
 
 Exporta la función mdLinks(<path>,<options>) este retorna una promesa, donde se resuelve un array de objetos, en caso de fallar devolverá el error.
 
@@ -51,10 +54,20 @@ Parámetros:
 - options: (objeto) con las siguiente propiedad:
    * validate: (bool) que determina si se desea validar los links encontrados.
       - false: retorna un array de objetos con  3 propiedades.
-    `[
+    ```[
        {
         href, //(string) link
         path, //(string) ruta absoluta
         text, //(string) texto
       }
-    ]`
+    ]```
+      - validate: retorna un array de objetos con 5 propiedades.
+    ```[
+       {
+        href, //(string) link
+        path, //(string) ruta absoluta
+        text, //(string) texto
+        status, ///(int) estado del link
+        message, ///(string) estado del link
+      }
+    ]```
