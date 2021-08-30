@@ -15,6 +15,15 @@ const help = chalk.magenta.bold(
   mdlinks <path-to-file> --stats`) +
 	chalk.magenta.bold(`
   ---------------------------------------------------------------------------`);
+
+  const help1 = ` 
+   __    __   _______  __      .______      
+  |  |  |  | |   ____||  |     |   _  \     
+  |  |__|  | |  |__   |  |     |  |_)  |    
+  |   __   | |   __|  |  |     |   ___/     
+  |  |  |  | |  |____ |   ----.|  |         
+  |__|  |__| |_______||_______|| _|`
+
 /*-------Mandar al cli-----*/
 
 if (process.argv.length === 3) {
@@ -39,6 +48,6 @@ if (process.argv.length === 3) {
     .then(result=> console.log(statistics(result) + brokenLinks(result)))
     .catch(error=> console.log(error));
   } else {
-    console.log(help);
+    console.log(help1+ "\n \n" + help);
   }
 }

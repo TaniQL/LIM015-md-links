@@ -1,4 +1,4 @@
-const {pathAbs, pathExists , pathDir, allMD, readMD} = require("../src/functions.js");
+const {pathAbs, pathExists , pathDir, allMD, readMD, statusLinks} = require("../src/functions.js");
 const route = "/home/tania/LIM015-md-links/filesmd/test.md";
 const routeRel = "filesmd/test.md";
 const routeDir = "/home/tania/LIM015-md-links/filesmd";
@@ -7,10 +7,17 @@ const arrayObjects = [
   {
     href: 'https://es.wikipedia.org/wiki/Markdown',
     text: 'Markdown',
+    path: '/home/tania/LIM015-md-links/filesmd/test.md'
+  }]
+
+const arrayObjectsComplete =  [
+  {
+    href: 'https://es.wikipedia.org/wiki/Markdown',
+    text: 'Markdown',
     path: '/home/tania/LIM015-md-links/filesmd/test.md',
     status: 200,
     message: 'ok'
-  }];
+  }]
 
 describe('pathAbs', () => {
   it('is a function', () => {
@@ -76,42 +83,14 @@ describe('readMD', () => {
 });
 
 
-const {api} = require("../src/mdlinks.js");
-
-describe('api', () => {
+describe('statusLinks', () => {
   it('is a function', () => {
-    expect(typeof api).toBe('function');
+    expect(typeof statusLinks).toBe('function');
   });
-
-  it ('Deberia retornar un Object', () => {
-    const result = api(route);
-    expect (typeof result).toBe('object');
-  })
-
-  it ('Deberia retornar un Object', () => {
-    const result = api(route);
-    expect (typeof result).toBe('object');
-  })
-
-  it ('Deberia retornar ERROR!!!', () => {
-    const result = api(routeFalse);
-    expect(result).rejects.toBe('False path');
-  })
-
-  it ('Deberia retornar ERROR!!!', () => {
-    const result = api("/home/tania/LIM015-md-links/filesmd/dirempty");
-    expect(result).rejects.toBe('No files');
-  })
-
-  it ('Deberia retornar ERROR!!!', () => {
-    const result = api("/home/tania/LIM015-md-links/filesmd/testsrc/hola.md");
-    expect(result).rejects.toBe('No links');
-  })
-
-  it ('Deberia retornar ERROR!!!', () => {
-    const result = api("/home/tania/LIM015-md-links/filesmd/testsrc/files/hola.txt");
-    expect(result).rejects.toBe('Sin archivos md');
-  })
+  // it('returns the status of links', () => { 
+  //   statusLinks(arrayObjects) 
+  //   .then((res) => expect(res).toEqual(arrayObjectsComplete))
+  // });
 });
 
 
@@ -122,7 +101,7 @@ describe('statistics', () => {
     expect(typeof statistics).toBe('function');
   });
   it ('Deberia retornar string', () => {
-    const result = statistics(arrayObjects);
+    const result = statistics(arrayObjectsComplete);
     expect (typeof result).toEqual('string');
   })
 });
