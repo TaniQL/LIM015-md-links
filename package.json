@@ -1,13 +1,18 @@
 {
-  "name": "md-links",
-  "version": "0.1.0",
-  "description": "- [1. Preámbulo](#1-preámbulo)\r - [2. Resumen del proyecto](#2-resumen-del-proyecto)\r - [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)\r - [4. Consideraciones generales](#4-consideraciones-generales)\r - [5. Criterios de aceptación mínimos del proyecto](#5-criterios-de-aceptación-mínimos-del-proyecto)\r - [6. Entregables](#6-entregables)\r - [7. Hacker edition](#7-hacker-edition)\r - [8. Pistas, tips y lecturas complementarias](#8-pistas-tips-y-lecturas-complementarias)\r - [9. Checklist](#9-checklist)\r - [10. Achicando el problema](#10-achicando-el-problema)",
-  "main": "index.js",
+  "name": "mdlinks-tql",
+  "version": "1.0.0",
+  "description": "## Índice",
+  "main": "src/cli.js",
+  "keywords": [
+    "mdlinks",
+    "cli",
+    "markdown"
+  ],
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --verbose --coverage"
   },
   "repository": {
     "type": "git",
@@ -21,10 +26,18 @@
   "homepage": "https://github.com/TaniQL/LIM015-md-links#readme",
   "dependencies": {
     "@laboratoria/curriculum-parser": "github:Laboratoria/course-parser",
+    "chalk": "^4.1.2",
     "filehound": "^1.17.4",
     "jest": "^27.0.6",
+    "jest-fetch-mock": "^3.0.3",
     "markdown-link-extractor": "^1.3.0",
     "node-fetch": "^2.6.1"
   },
-  "devDependencies": {}
+  "bin": {
+    "mdlinks": "src/cli.js"
+  },
+  "jest": {
+    "automock": false,
+    "setupFiles": ["./src/setupJest.js"]
+  }
 }

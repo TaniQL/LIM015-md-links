@@ -1,9 +1,9 @@
-//console.log(process.argv);
 const path = require('path');
 const resolve = require('path').resolve;
 const fs = require('fs');
 let route = process.argv[2];
 const markdownLinkExtractor = require('markdown-link-extractor');
+const fetch = require('node-fetch');
 
 /*---------------Function Absolute or Relative Path--------------*/
 const pathAbs = (filePath) => {
@@ -19,19 +19,19 @@ route = pathAbs(route);
 /*---------------Function Path exists or not--------------*/
 
 const pathExists = (filePath) => {
-  fs.access(filePath, (err) => {
-  console.log(`${filePath} ${err ? 'does not exist' : 'exists'}`);
-});
+  try{
+    fs.accessSync(filePath);
+    return true;
+  } catch (err) {
+    return false;
+  }
 }
-//pathExists(route);
-
 
 /*---------------Function Path File--------------*/
 const isFilePath = (filePath) => {
   const stats = fs.lstatSync(filePath);
   return stats.isFile();
 }
-//console.log(isFilePath(route));
 
 /*---------------Extension .md--------------*/
 
@@ -55,7 +55,6 @@ const pathDir = (filePath) => {
   }
   return routeComplete;
 }
-const filesComplete = pathDir(route);
 
 //que lea la extensión y que lo coloque en el array.
 const allMD = (filePathArray) => {
@@ -64,9 +63,7 @@ const allMD = (filePathArray) => {
   return filesmd;
 }
 
-allMD(filesComplete);
-
-/*-------Leer archivo------*/
+/*----------------Leer archivo------------*/
 
 const readMD = (filePathArray) => {
   let newArray = [];
@@ -78,17 +75,36 @@ const readMD = (filePathArray) => {
     })
     newArray = newArray.concat(newProperties);
   })
-  console.log(newArray);
+  return newArray;
 }
-readMD(allMD(filesComplete))
 
+/*-------Extraer links para verificar su status------*/
 
+const statusLinks = (result) =>{
+  return fetch(result.href)
+  .then(res => {
+    const statusText = (res.status == 200)? 'ok' :'fail';
+    const objRes = {
+     ...result,
+      status: res.status,
+      message: statusText
+      }
+    return objRes
+  }).catch(rej => {
+    const objRej ={
+      ...result,
+      status: rej.status,
+      message: 'Status not found'
+    }
+    return objRej
+  })
+}
 
-/*-------Exportar módulos a mdlinks.js------*/
-module.exports = () => {
-  pathAbs;
-  pathExists;
-  isFilePath;
-  pathDir;
-  findmd;
+module.exports = {
+  pathAbs,
+  pathExists,
+  pathDir,
+  allMD,
+  readMD,
+  statusLinks
 };

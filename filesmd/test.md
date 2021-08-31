@@ -9,6 +9,16 @@ muchas veces están rotos o ya no son válidos y eso perjudica mucho el valor de
 la información que se quiere compartir.
 
 Dentro de una comunidad de código abierto, nos han propuesto crear una
-herramienta usando [Node.js](https://nodejs.org/), que lea y analice archivos
+herramienta usando [Node.js](https://github.com/404) , que lea y analice archivos
+en formato `Markdown`, para verificar los links que contengan y reportar
+algunas estadísticas.
+
+Dentro de una comunidad de código abierto, nos han propuesto crear una
+herramienta usando [Node.js](https://github.com/404) , que lea y analice archivos
+en formato `Markdown`, para verificar los links que contengan y reportar
+algunas estadísticas.
+
+Dentro de una comunidad de código abierto, nos han propuesto crear una
+herramienta usando [Node.js](https://github.com) , que lea y analice archivos
 en formato `Markdown`, para verificar los links que contengan y reportar
 algunas estadísticas.
