@@ -1,42 +1,34 @@
 #!/usr/bin/env node
-const {api} = require("./mdlinks.js");
+const {mdlinks} = require("./mdlinks.js");
 const {statistics, brokenLinks} = require("./stats.js");
 const chalk = require('chalk');
 const route = process.argv[2];
 const validate = process.argv[3] === '--validate' || process.argv[4] === '--validate';
 const stats = process.argv[3] === '--stats' || process.argv[4] === '--stats'; 
 const help = chalk.magenta.bold(
-	'--------------------------------- Options --------------------------------') +
+	'--------------------------------- Options --------------------------------------------------------------') +
 	chalk.magenta(`
-  mdlinks <path-to-file>
-  mdlinks <path-to-file> --validate --stats
-  mdlinks <path-to-file> --stats --validate
-  mdlinks <path-to-file> --validate
-  mdlinks <path-to-file> --stats`) +
+  mdlinks <path-to-file>                     : Shows 'href', 'path' & 'title'
+  mdlinks <path-to-file> --validate --stats  : Shows statistics 'broken','total' & 'unique'
+  mdlinks <path-to-file> --stats --validate  : Shows statistics 'broken','total' & 'unique'
+  mdlinks <path-to-file> --validate          : Shows 'href', 'path' & 'title'
+  mdlinks <path-to-file> --stats)            : Shows 'href', 'path', 'title', 'status' & 'message status'` +
 	chalk.magenta.bold(`
-  ---------------------------------------------------------------------------`);
-
-  const help1 = ` 
-   __    __   _______  __      .______      
-  |  |  |  | |   ____||  |     |   _  \     
-  |  |__|  | |  |__   |  |     |  |_)  |    
-  |   __   | |   __|  |  |     |   ___/     
-  |  |  |  | |  |____ |   ----.|  |         
-  |__|  |__| |_______||_______|| _|`
+  --------------------------------------------------------------------------------------------------------`));
 
 /*-------Mandar al cli-----*/
 
 if (process.argv.length === 3) {
-  api(route,{validate:false})
+  mdlinks(route,{validate:false})
   .then(result=> console.log(result))
   .catch(error=> console.log(error));
 } else if (process.argv.length === 4) {
   if (stats){
-    api(route,{validate:true})
+    mdlinks(route,{validate:true})
     .then(result=> console.log(statistics(result)))
     .catch(error=> console.log(error));
   } else if(validate){
-    api(route,{validate:true})
+    mdlinks(route,{validate:true})
     .then(result=> console.log(result))
     .catch(error=> console.log(error));
   } else {
@@ -44,10 +36,12 @@ if (process.argv.length === 3) {
   }
 } else if (process.argv.length === 5)  {
   if (validate && stats){
-    api(route,{validate:true})
+    mdlinks(route,{validate:true})
     .then(result=> console.log(statistics(result) + brokenLinks(result)))
     .catch(error=> console.log(error));
   } else {
-    console.log(help1+ "\n \n" + help);
+    console.log(help);
   }
+}else {
+  console.log(help);
 }

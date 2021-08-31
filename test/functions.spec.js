@@ -13,10 +13,10 @@ const arrayObjects = [
 const arrayObjectsComplete =  [
   {
     href: 'https://es.wikipedia.org/wiki/Markdown',
-    text: 'Markdown',
+    message: 'ok',
     path: '/home/tania/LIM015-md-links/filesmd/test.md',
     status: 200,
-    message: 'ok'
+    text: 'Markdown'
   }]
 
 describe('pathAbs', () => {
@@ -87,12 +87,81 @@ describe('statusLinks', () => {
   it('is a function', () => {
     expect(typeof statusLinks).toBe('function');
   });
-  // it('returns the status of links', () => { 
-  //   statusLinks(arrayObjects) 
-  //   .then((res) => expect(res).toEqual(arrayObjectsComplete))
-  // });
-});
+  
+  test('fail', () => {
+  const link = 
+    {
+      href: 'https://github.com/404',
+      text: 'Node.js',
+      path: '/home/tania/LIM015-md-links/filesmd/testcopy.md'
+    }
+  ;
+  const validate  = 
+    {
+      href: 'https://github.com/404',
+      text: 'Node.js',
+      path: '/home/tania/LIM015-md-links/filesmd/testcopy.md',
+      status: 404,
+      message: 'fail'
+    }
+  ;
+    fetch.mockImplementation(() => Promise.resolve({
+      status: 404,
+      statusText: 'fail',
+    }));
+    return statusLinks(link)
+    .then((res) => {
+      expect(res).toEqual(validate);
+    });
+  });
 
+  it('ok', () => {
+    const link = 
+      {
+        href: 'https://es.wikipedia.org/wiki/Markdown',
+        text: 'Markdown',
+        path: '/home/tania/LIM015-md-links/filesmd/test.md'
+      }
+    ;
+    const validate  = 
+      {
+        href: 'https://es.wikipedia.org/wiki/Markdown',
+        message: 'ok',
+        path: '/home/tania/LIM015-md-links/filesmd/test.md',
+        status: 200,
+        text: 'Markdown'
+      }
+    ;
+      fetch.mockImplementation(() => Promise.resolve({
+        status: 200,
+        statusText: 'ok',
+      }));
+      return statusLinks(link)
+      .then((res) => {
+        expect(res).toEqual(validate);
+      });
+    });
+
+    it('reject', () => {
+      const arr = {
+        href: 'https://hellotania.bye',
+        text: 'Tania Rej',
+        file: '/home/tania/LIM015-md-links/filesmd/fail.md'
+      };
+      const obj = {
+        href: 'https://hellotania.bye',
+        text: 'Tania Rej',
+        file: '/home/tania/LIM015-md-links/filesmd/fail.md',
+        status: 'Status not found',
+        message: 'Status not found'
+      };
+      fetch.mockImplementation(() => Promise.reject({}));
+      return statusLinks(arr)
+      .catch((err) => {
+        expect(err).toEqual(obj);
+      });
+    });
+});
 
 const {statistics, brokenLinks} = require("../src/stats.js");
 

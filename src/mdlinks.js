@@ -6,7 +6,7 @@ const {
   readMD,
   statusLinks } = require('./functions.js');
 
-const api = (pathFile, option = {validate:false}) => {
+const mdlinks = (pathFile, option = {validate:false}) => {
   let promise = new Promise ((resolve,reject) => {
     const abs = pathAbs(pathFile);
     if (pathExists(abs)){
@@ -40,5 +40,5 @@ const api = (pathFile, option = {validate:false}) => {
 
 /*-------Exportar módulos a mdlinks.js------*/
 module.exports = {
-  api
+  mdlinks
 };
